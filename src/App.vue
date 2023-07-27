@@ -1,36 +1,47 @@
 <template>
-  <div>
-    <h1>Todo List App</h1>
-    <CreateTodo @add="addTodo" />
-    <TodoList :title="listTitle" :todos="todos" @toggle="toggleTodo" />
+  <div class="flex">
+    <TaskColumn
+      v-for="column in columns"
+      :key="column.id"
+      :title="column.title"
+      :cards="column.cards"
+      @updateCards="updateCards"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { Todo } from "./types";
-import CreateTodo from "./components/CreateTodo.vue";
-import TodoList from "./components/TodoList.vue";
+import { reactive } from "vue";
+import TaskColumn from "./components/TaskColumn.vue";
 
-const listTitle = "My Todos";
-const todos = ref<Todo[]>([
-  { id: 1, text: "Buy groceries", completed: false },
-  { id: 2, text: "Do laundry", completed: true },
+interface Card {
+  id: number;
+  title: string;
+}
+
+interface Column {
+  id: number;
+  title: string;
+  cards: Card[];
+}
+
+const columns = reactive<Column[]>([
+  {
+    id: 1,
+    title: "To Do",
+    cards: [
+      { id: 1, title: "Task 1" },
+      { id: 2, title: "Task 2" },
+    ],
+  },
+  { id: 2, title: "In Progress", cards: [] },
+  { id: 3, title: "Done", cards: [] },
 ]);
 
-function addTodo(todoText: string) {
-  const newTodo: Todo = {
-    id: todos.value.length + 1,
-    text: todoText,
-    completed: false,
-  };
-  todos.value.push(newTodo);
-}
-
-function toggleTodo(todoId: number) {
-  const todo = todos.value.find((todo) => todo.id === todoId);
-  if (todo) {
-    todo.completed = !todo.completed;
+const updateCards = (columnId: number, cards: Card[]) => {
+  const column = columns.find((col) => col.id === columnId);
+  if (column) {
+    column.cards = cards;
   }
-}
+};
 </script>
