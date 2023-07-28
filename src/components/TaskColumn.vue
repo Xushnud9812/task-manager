@@ -5,14 +5,10 @@
       v-model="props.cards"
       :group="group"
       @change="onDragEnd"
-      :itemKey="(item) => item.id"
+      :itemKey="(item:any) => item.id"
     >
-      <template #item="{ element, index }">
-        <TaskItem
-          :id="element.id"
-          :title="element.title"
-          @updateCards="updateCards"
-        />
+      <template #item="{ element }">
+        <TaskItem :id="element.id" :title="element.title" />
       </template>
     </draggable>
   </div>
