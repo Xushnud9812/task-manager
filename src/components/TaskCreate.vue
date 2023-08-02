@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { Task } from "../components/types/index";
 import { useKanbanStore } from "../store";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -27,7 +26,7 @@ const closeModal = () => {
   emit("close");
 };
 
-const newTask: Task | any = ref({
+const newTask = ref({
   id: uuidv4(),
   title: "",
   date: "",
