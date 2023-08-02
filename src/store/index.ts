@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { Task, Column } from "../components/types/index";
 
 export const useKanbanStore = defineStore("kanban", {
   state: () => ({
@@ -7,33 +8,33 @@ export const useKanbanStore = defineStore("kanban", {
         title: "Backlog",
         tasks: [
           {
-            id: 1,
+            id: "1",
             title: "Add discount code to checkout page",
-            date: "Sep 14",
-            type: "Feature Request",
+            date: "2023-08-01",
+            taskType: "Feature Request",
           },
           {
-            id: 2,
+            id: "2",
             title: "Provide documentation on integrations",
-            date: "Sep 12",
+            date: "2023-08-01",
           },
           {
-            id: 3,
+            id: "3",
             title: "Design shopping cart dropdown",
-            date: "Sep 9",
-            type: "Design",
+            date: "2023-08-01",
+            taskType: "Design",
           },
           {
-            id: 4,
+            id: "4",
             title: "Add discount code to checkout page",
-            date: "Sep 14",
-            type: "Feature Request",
+            date: "2023-08-01",
+            taskType: "Feature Request",
           },
           {
-            id: 5,
+            id: "5",
             title: "Test checkout flow",
-            date: "Sep 15",
-            type: "QA",
+            date: "2023-08-01",
+            taskType: "QA",
           },
         ],
       },
@@ -41,22 +42,22 @@ export const useKanbanStore = defineStore("kanban", {
         title: "In Progress",
         tasks: [
           {
-            id: 6,
+            id: "6",
             title: "Design shopping cart dropdown",
-            date: "Sep 9",
-            type: "Design",
+            date: "2023-08-01",
+            taskType: "Design",
           },
           {
-            id: 7,
+            id: "7",
             title: "Add discount code to checkout page",
-            date: "Sep 14",
-            type: "Feature Request",
+            date: "2023-08-01",
+            taskType: "Feature Request",
           },
           {
-            id: 8,
+            id: "8",
             title: "Provide documentation on integrations",
-            date: "Sep 12",
-            type: "Backend",
+            date: "2023-08-01",
+            taskType: "Backend",
           },
         ],
       },
@@ -64,33 +65,33 @@ export const useKanbanStore = defineStore("kanban", {
         title: "Review",
         tasks: [
           {
-            id: 9,
+            id: "9",
             title: "Provide documentation on integrations",
-            date: "Sep 12",
+            date: "2023-08-01",
           },
           {
-            id: 10,
+            id: "10",
             title: "Design shopping cart dropdown",
-            date: "Sep 9",
-            type: "Design",
+            date: "2023-08-01",
+            taskType: "Design",
           },
           {
-            id: 11,
+            id: "11",
             title: "Add discount code to checkout page",
-            date: "Sep 14",
-            type: "Feature Request",
+            date: "2023-08-01",
+            taskType: "Feature Request",
           },
           {
-            id: 12,
+            id: "12",
             title: "Design shopping cart dropdown",
-            date: "Sep 9",
-            type: "Design",
+            date: "2023-08-01",
+            taskType: "Design",
           },
           {
-            id: 13,
+            id: "13",
             title: "Add discount code to checkout page",
-            date: "Sep 14",
-            type: "Feature Request",
+            date: "2023-08-01",
+            taskType: "Feature Request",
           },
         ],
       },
@@ -98,36 +99,38 @@ export const useKanbanStore = defineStore("kanban", {
         title: "Done",
         tasks: [
           {
-            id: 14,
+            id: "14",
             title: "Add discount code to checkout page",
-            date: "Sep 14",
-            type: "Feature Request",
+            date: "2023-08-01",
+            taskType: "Feature Request",
           },
           {
-            id: 15,
+            id: "15",
             title: "Design shopping cart dropdown",
-            date: "Sep 9",
-            type: "Design",
+            date: "2023-08-01",
+            taskType: "Design",
           },
           {
-            id: 16,
+            id: "16",
             title: "Add discount code to checkout page",
-            date: "Sep 14",
-            type: "Feature Request",
+            date: "2023-08-01",
+            taskType: "Feature Request",
           },
         ],
       },
-    ],
+    ] as Column[],
   }),
   actions: {
-    updateColumns(columns) {
-      this.columns = columns;
-    },
-    updateTasksInColumn(colId, task) {
-      console.log("ok", colId);
-      // this.columns.filter((item) => item.colId == colId)
-      //   this.columns[colId].tasks.push(task);
+    addTaskToColumn(columnTitle: string, task: Task) {
+      console.log("qani", columnTitle, task);
+      const column = this.columns.find((col) => col.title === columnTitle);
+      if (column) {
+        column.tasks.push(task);
+      } else {
+        console.error(`Column "${columnTitle}" not found.`);
+      }
     },
   },
+
   persist: true,
 });

@@ -1,6 +1,11 @@
 export interface Task {
-    id: number;
-    title: string;
-    description: string;
-    status: string; 
-  }
+  id: string;
+  title: string;
+  date: string;
+  taskType: string;
+}
+
+export interface Column {
+  title: string;
+  tasks: Task[];
+}
